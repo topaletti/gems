@@ -7,11 +7,20 @@ h2 {margin:0;font-size:72px;color:white;font-weigth:bold;letter-spacing:-0.05em;
   text-decoration:underline solid #FFFC80;}
 p.h1-caption {margin:0 auto;width:800px;max-width:90%;font-size:24px;color:white;letter-spacing:-0.05em;}
 p.h2-caption {margin-left:64px;font-size:24px;color:white;letter-spacing:-0.05em;}
+div.odd {background:linear-gradient(to bottom right,#240033,#030033,#240033);}
+div.even {background:linear-gradient(to bottom left,#240033,#030033,#240033);}
 div.placard {padding:0 16px 96px 16px;}
-div.placard:first-of-type {margin-top:80px;text-align:center;}
+div.placard:first-of-type {margin-top:80px;padding:64px 0 160px 0;text-align:center;}
 div.placard-content {margin:0 96px 0 96px;}
-div.odd {background:linear-gradient(to bottom right,#240033,#030033);}
-div.even {background:linear-gradient(to bottom left,#030033,#240033);}
+div.placard-content input {}
+div.placard-content input.email
+  {margin-left:64px;height:64px;border-radius:32px 0 0 32px;border-style:none;outline:none;
+  padding:0 32px 0 32px;font-size:24px;}
+div.placard-content button#button-newsletter-sign-up
+  {margin-left:-8px;height:64px;border-radius:0 32px 32px 0;border-style:none;
+  background:#FFFC80;padding:0 32px 0 16px;text-align:left;font-size:24px;color:black;}
+div.placard-content button#button-newsletter-sign-up:hover
+  {}
 {% endblock %}
 
 {% block content %}
@@ -28,9 +37,10 @@ div.even {background:linear-gradient(to bottom left,#030033,#240033);}
   <div class="placard-content">
     <h2>Our Database</h2>
     <p class="h2-caption">
-      We monitor European stock exchanges<br>
-      and list the companies that meet our criteria<br>
-      in our freely accessible database.
+      We monitor European stock exchanges and add companies
+      that meet our criteria to our freely accessible database.
+      Taking inspiration from the American Nasdaq stock exchange,
+      our database is focused on rising companies with further growth potential.
     </p>
   </div>
 </div>
@@ -38,18 +48,21 @@ div.even {background:linear-gradient(to bottom left,#030033,#240033);}
   <div class="placard-content">
     <h2>The Gem Report</h2>
     <p class="h2-caption">
-      For more in-depth information on the companies in our database<br>
-      we regularly release articles with additional analysis in our Gem Report.
+      For more in-depth information on the companies in our database
+      we regularly release articles with additional analysis in our Gem Report.<br>
+      Sign up for our monthly newsletter to get our updates delivered straight to your inbox:
     </p>
+    <input class="email" type="email" size="30" placeholder="Your e-mail address">
+    <button id="button-newsletter-sign-up" type="button">Sign up</button>
   </div>
 </div>
 <div class="placard even">
   <div class="placard-content">
-    <h2>User Ranking</h2>
+    <h2>Portfolio Ranking</h2>
     <p class="h2-caption">
-      Here's where you get to participate.<br>
+      This is where you get to participate.<br>
       Register a free account, build your own virtual stock portfolio of companies from our database<br>
-      and see how it performs over time compared to other users' portfolios.
+      and see how it performs over time compared to other people's portfolios.
     </p>
   </div>
 </div>
