@@ -21,39 +21,42 @@
     nav div.menu {display:inline;;text-align:right;font-size:16px;padding-left:48px;padding-right:48px;}
     nav div.menu span.menu-button {margin:0 24px 0 24px;padding:4px;}
     nav div.menu span.menu-button:hover {border-style:none none solid none;border-width:2px;border-color:var(--second-accent-color);}
+    {% block additional-css %}{% endblock %}
 	</style>
   </head>
   <body>
 	<header>
       <nav>
         <div class="logo">
-          <svg width="40" height="40" viewBox="0 0 62 62">
-            <path
-               style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 2.7944297,32.869169 44.096913,58.522671 58.870383,13.383189 46.151339,2.5837329 7.6731356,15.131819 Z"
-               id="path10"
-               sodipodi:nodetypes="cccccc" />
-            <path
-               style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 2.7944297,32.869169 58.870383,13.383189"
-               id="path16"
-               sodipodi:nodetypes="cc" />
-            <path
-               style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 7.6731356,15.131819 22.58619,25.887789 26.417688,10.402344 40.223907,19.738389 46.151339,2.5837329"
-               id="path22"
-               sodipodi:nodetypes="ccccc" />
-            <path
-               style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 22.58619,25.887789 44.096912,58.522671 40.223905,19.738389"
-               id="path26"
-               sodipodi:nodetypes="ccc" />
-          </svg>
-          <a href="{% url 'app/index' %}">Gems of Europe</a>
+          <a href="{% url 'app/index' %}">
+            <svg width="40" height="40" viewBox="0 0 62 62">
+              <path
+                 style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 d="M 2.7944297,32.869169 44.096913,58.522671 58.870383,13.383189 46.151339,2.5837329 7.6731356,15.131819 Z"
+                 id="path10"
+                 sodipodi:nodetypes="cccccc" />
+              <path
+                 style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 d="M 2.7944297,32.869169 58.870383,13.383189"
+                 id="path16"
+                 sodipodi:nodetypes="cc" />
+              <path
+                 style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 d="M 7.6731356,15.131819 22.58619,25.887789 26.417688,10.402344 40.223907,19.738389 46.151339,2.5837329"
+                 id="path22"
+                 sodipodi:nodetypes="ccccc" />
+              <path
+                 style="fill:none;stroke:#800080;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 d="M 22.58619,25.887789 44.096912,58.522671 40.223905,19.738389"
+                 id="path26"
+                 sodipodi:nodetypes="ccc" />
+            </svg>
+            Gems of Europe
+          </a>
         </div>
         <div class="menu">
-          <span class="menu-button"><a href="">Gem Report</a></span>
           <span class="menu-button"><a href="">Database</a></span>
+          <span class="menu-button"><a href="">Gem Report</a></span>
           <span class="menu-button"><a href="">User Ranking</a></span>
         </div>
       </nav>
