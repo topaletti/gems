@@ -1,9 +1,9 @@
 {% extends "app/base.html" %}
 
 {% block additional-css %}
-h1 {margin:0 0 32px 0;padding-top:48px;font-size:96px;color:white;font-weigth:bold;letter-spacing:-0.05em;
+h1 {margin:0 0 32px 0;padding-top:48px;font-size:96px;color:white;font-weight:bold;letter-spacing:-0.05em;
   text-decoration:underline #FFFC80;}
-h2 {margin:0;font-size:72px;color:white;font-weigth:bold;letter-spacing:-0.05em;
+h2 {margin:0;font-size:72px;color:white;font-weight:bold;letter-spacing:-0.05em;
   text-decoration:underline solid #FFFC80;}
 p.h1-caption {margin:0 auto;width:800px;max-width:90%;font-size:24px;color:white;letter-spacing:-0.05em;}
 p.h2-caption {margin-left:64px;font-size:24px;color:white;letter-spacing:-0.05em;}
@@ -16,10 +16,11 @@ div.placard-content input {}
 div.placard-content input.email
   {margin-left:64px;height:64px;border-radius:32px 0 0 32px;border-style:none;outline:none;
   padding:0 32px 0 32px;font-size:24px;}
-div.placard-content button#button-newsletter-sign-up
+div.placard-content button#button-newsletter-signup
   {margin-left:-8px;height:64px;border-radius:0 32px 32px 0;border-style:none;
-  background:#FFFC80;padding:0 32px 0 16px;text-align:left;font-size:24px;color:black;}
-div.placard-content button#button-newsletter-sign-up:hover
+  background:#FFFC80;padding:0 32px 0 16px;text-align:left;
+  font-size:24px;color:black;}
+div.placard-content button#button-newsletter-signup:hover
   {}
 {% endblock %}
 
@@ -52,8 +53,8 @@ div.placard-content button#button-newsletter-sign-up:hover
       we regularly release articles with additional analysis in our Gem Report.<br>
       Sign up for our monthly newsletter to get our updates delivered straight to your inbox:
     </p>
-    <input class="email" type="email" size="30" placeholder="Your e-mail address">
-    <button id="button-newsletter-sign-up" type="button">Sign up</button>
+    <input class="email" type="email" size="30" placeholder="Your email address">
+    <button id="button-newsletter-signup" type="button">Sign up</button>
   </div>
 </div>
 <div class="placard even">
