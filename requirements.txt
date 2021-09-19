@@ -1,5 +1,7 @@
 django
-gunicorn
+django-anymail
 django-heroku
-psycopg2-binary
 dj-database-url
+gunicorn
+psycopg2-binary
+whitenoise

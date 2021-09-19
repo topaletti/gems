@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import include, path
 
 import app.views
+import app.mail
 
 urlpatterns = [
     path('', app.views.index, name="app/index"),
     path('admin/', admin.site.urls),
+    #path('sendtestmail/', app.mail.send_test_mail),
 ]

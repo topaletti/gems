@@ -1,6 +1,5 @@
 venv
 *.pyc
-settings
 staticfiles
 .env
 db.sqlite3
