@@ -139,6 +139,7 @@ django_heroku.settings(locals())
 # Anymail and Mailgun
 ANYMAIL = {
     "MAILGUN_API_KEY": '9588efb358c5718da4e5fe62a87bcef9-90346a2d-aedd8486',
+    "MAILGUN_API_URL": "https://api.eu.mailgun.net/v3",
     "MAILGUN_SENDER_DOMAIN": 'sandboxd28b64f8bba549dc9635d53bf5fe516d.mailgun.org',
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
