@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lm3mvg%=-d_4f(2zoshaq5!-a!vbtw$0kg(4=x*5p_(mqey_(u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['gemsofeurope.herokuapp.com']
 
