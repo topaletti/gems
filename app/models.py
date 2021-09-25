@@ -20,9 +20,14 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'companies'
+
+
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     companies = models.ManyToManyField(Company, through='PortfolioCompany')
+
 
 class PortfolioCompany(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
@@ -32,3 +37,8 @@ class PortfolioCompany(models.Model):
     currently_holding = models.BooleanField(default=True)
     last_buy_date = models.DateTimeField(blank=True)
     last_sell_date = models.DateTimeField(blank=True)
+
+    class Meta:
+        db_table = 'app_portfolio_company'
+        verbose_name = 'portfolio-company association'
+        verbose_name_plural = 'portfolio-company associations'
