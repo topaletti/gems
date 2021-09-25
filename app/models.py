@@ -8,13 +8,13 @@ class Company(models.Model):
     description = models.CharField(max_length=2000, blank=True)
     stock_exchange = models.CharField(max_length=50, blank=True)
     ticker = models.CharField(max_length=12, blank=True)
-    price = models.FloatField(default=0)
-    price_history = models.JSONField(blank=True)
+    price = models.FloatField(default=0, blank=True)
+    price_history = models.JSONField(default=0, blank=True)
     currency = models.CharField(max_length=3, blank=True)
     website = models.CharField(max_length=50, blank=True)
     xing_profile = models.CharField(max_length=50, blank=True)
     kununu_profile = models.CharField(max_length=50, blank=True)
-    kununu_score = models.FloatField(default=0)
+    kununu_score = models.FloatField(default=0, blank=True)
     industry = models.CharField(max_length=50, blank=True)
 
     def __str__(self):

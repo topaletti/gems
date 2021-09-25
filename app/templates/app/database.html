@@ -1,0 +1,18 @@
+{% extends "app/base.html" %}
+
+{% block additional-css %}
+div#content {margin:160px auto 0 auto;width:1000px;max-width:90%;}
+div.company {margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 8px 64px -16px;}
+{% endblock %}
+
+{% block content %}
+<div id="content">
+{% if company_list %}
+    {% for company in company_list %}
+        <div class="company">{{ company.name }}</div>
+    {% endfor %}
+{% else %}
+    <p>No companies are available.</p>
+{% endif %}
+</div>
+{% endblock %}
