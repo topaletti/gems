@@ -7,3 +7,6 @@ local-migrate: local-settings
 
 remote-settings:
 	cp settings/remote.py gems/settings.py
+
+stage: remote-settings
+	git add .
