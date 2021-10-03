@@ -2,17 +2,38 @@
 
 {% block additional-css %}
 div#content {margin:160px auto 0 auto;width:1000px;max-width:90%;}
-div.company {margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 8px 64px -16px;}
+div.company {display:flex;align-items:center;margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 8px 64px -16px;}
+div.company .expand-button {align-self:flex-end;margin-left:auto}
 {% endblock %}
 
 {% block content %}
 <div id="content">
 {% if company_list %}
     {% for company in company_list %}
-        <div class="company">{{ company.name }}</div>
+        <div class="company">
+            {{ company.name }} <button class="expand-button" type="button">Expand</button>
+        </div>
     {% endfor %}
 {% else %}
     <p>No companies are available.</p>
 {% endif %}
 </div>
+<script type='text/javascript'>
+    const expandButtons = document.querySelectorAll('.expand-button');
+    expandButtons.forEach(button => button.addEventListener('click', expand, false));
+
+    function expand(e) {
+        this.parentElement.style.backgroundColor = 'lightgrey';
+        this.removeEventListener('click', expand, false);
+        this.addEventListener('click', collapse, false);
+        this.innerHTML = 'Collapse';
+    }
+
+    function collapse(e) {
+        this.parentElement.style.backgroundColor = 'white';
+        this.removeEventListener('click', collapse, false);
+        this.addEventListener('click', expand, false);
+        this.innerHTML = 'Expand';
+    }
+</script>
 {% endblock %}
