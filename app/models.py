@@ -20,6 +20,16 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+    def price_history_bar_ends(self):
+        price_history = self.price_history
+        min_price = min(price_history)
+        max_price = max(price_history)
+        pixel_per_unit = 260 / (max_price - min_price)
+        bar_ends = []
+        for price in price_history:
+            bar_ends.append(round((280 - (price - min_price) * pixel_per_unit),2))
+        return bar_ends
+
     class Meta:
         verbose_name_plural = 'companies'
 

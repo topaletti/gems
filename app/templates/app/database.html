@@ -2,18 +2,32 @@
 
 {% block additional-css %}
 div#content {margin:160px auto 0 auto;width:1000px;max-width:90%;}
-div.company {display:flex;align-items:center;margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 8px 64px -16px;}
-div.company .expand-button {align-self:flex-end;margin-left:auto}
+div.company {margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 8px 64px -16px;}
+div.always-showing {display:flex;align-items:center;}
+div.always-showing .expand-button {align-self:flex-end;margin-left:auto}
+div.expandable {margin-top:16px}
+path.bars {stroke:var(--main-accent-color)}
+path.grid {stroke:#cccccc;stroke-width:0.5}
 {% endblock %}
 
 {% block content %}
 <div id="content">
 {% if company_list %}
-    {% for company in company_list %}
-        <div class="company">
+{% for company in company_list %}
+    <div class="company">
+        <div class="always-showing">
             {{ company.name }} <button class="expand-button" type="button">Expand</button>
         </div>
-    {% endfor %}
+        <div class="expandable" hidden="true">
+            <svg width="480" height="320" viewBox="0 0 480 320">
+                <path class="bars" d="M {% for bar_end in company.price_history_bar_ends %}{{ forloop.counter0|add:"10" }},{{ bar_end }} {% endfor %}"/>
+                <path class="grid" d="M 10,10 H 375"/><path class="grid" d="M 10,50 H 375"/><path class="grid" d="M 10,90 H 375"/><path class="grid" d="M 10,130 H 375"/><path class="grid" d="M 10,170 H 375"/><path class="grid" d="M 10,210 H 375"/><path class="grid" d="M 10,250 H 375"/><path class="grid" d="M 10,290 H 375"/>
+                <path class="grid" d="M 10,10 V 290"/><path class="grid" d="M 83,10 V 290"/><path class="grid" d="M 156,10 V 290"/><path class="grid" d="M 229,10 V 290"/><path class="grid" d="M 302,10 V 290"/><path class="grid" d="M 375,10 V 290"/>
+                <text x="20" y="310">2017</text><text x="93" y="310">2018</text><text x="166" y="310">2019</text><text x="239" y="310">2020</text><text x="312" y="310">2021</text>
+            </svg>
+        </div>
+    </div>
+{% endfor %}
 {% else %}
     <p>No companies are available.</p>
 {% endif %}
@@ -23,14 +37,14 @@ div.company .expand-button {align-self:flex-end;margin-left:auto}
     expandButtons.forEach(button => button.addEventListener('click', expand, false));
 
     function expand(e) {
-        this.parentElement.style.backgroundColor = 'lightgrey';
+        this.parentElement.parentElement.querySelector('.expandable').hidden = false;
         this.removeEventListener('click', expand, false);
         this.addEventListener('click', collapse, false);
         this.innerHTML = 'Collapse';
     }
 
     function collapse(e) {
-        this.parentElement.style.backgroundColor = 'white';
+        this.parentElement.parentElement.querySelector('.expandable').hidden = true;
         this.removeEventListener('click', collapse, false);
         this.addEventListener('click', expand, false);
         this.innerHTML = 'Expand';
