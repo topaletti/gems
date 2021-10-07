@@ -20,7 +20,7 @@ path.grid {stroke:#cccccc;stroke-width:0.5}
         </div>
         <div class="expandable" hidden="true">
             <svg width="480" height="320" viewBox="0 0 480 320">
-                <path class="bars" d="M {% for bar_end in company.price_history_bar_ends %}{{ forloop.counter0|add:"10" }},{{ bar_end }} {% endfor %}"/>
+                <path class="bars" d="M {% for point in company.price_history_points %}{{ forloop.counter0|add:"10" }},{{ point }} {% endfor %}"/>
                 <path class="grid" d="M 10,10 H 375"/><path class="grid" d="M 10,50 H 375"/><path class="grid" d="M 10,90 H 375"/><path class="grid" d="M 10,130 H 375"/><path class="grid" d="M 10,170 H 375"/><path class="grid" d="M 10,210 H 375"/><path class="grid" d="M 10,250 H 375"/><path class="grid" d="M 10,290 H 375"/>
                 <path class="grid" d="M 10,10 V 290"/><path class="grid" d="M 83,10 V 290"/><path class="grid" d="M 156,10 V 290"/><path class="grid" d="M 229,10 V 290"/><path class="grid" d="M 302,10 V 290"/><path class="grid" d="M 375,10 V 290"/>
                 <text x="20" y="310">2017</text><text x="93" y="310">2018</text><text x="166" y="310">2019</text><text x="239" y="310">2020</text><text x="312" y="310">2021</text>
