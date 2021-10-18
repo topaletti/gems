@@ -26,7 +26,6 @@ class Company(models.Model):
         for price in price_history:
             prices.append(price_history[price])
         prices = prices[0::5] #getting every fifth
-        prices = prices[::-1] #reversing array
         min_price = min(prices)
         max_price = max(prices)
         price_spread = max_price - min_price
