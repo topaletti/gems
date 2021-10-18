@@ -9,7 +9,7 @@ class Company(models.Model):
     stock_exchange = models.CharField(max_length=50, blank=True)
     ticker = models.CharField(max_length=12, blank=True)
     price = models.FloatField(default=0, blank=True)
-    price_history = models.JSONField(default=[1] * 365, blank=True)
+    price_history = models.JSONField(default=dict(), blank=True)
     currency = models.CharField(max_length=3, blank=True)
     website = models.CharField(max_length=50, blank=True)
     xing_profile = models.CharField(max_length=50, blank=True)
@@ -22,15 +22,20 @@ class Company(models.Model):
 
     def price_history_points(self):
         price_history = self.price_history
-        min_price = min(price_history)
-        max_price = max(price_history)
+        prices = []
+        for price in price_history:
+            prices.append(price_history[price])
+        prices = prices[0::5] #getting every fifth
+        prices = prices[::-1] #reversing array
+        min_price = min(prices)
+        max_price = max(prices)
         price_spread = max_price - min_price
         if price_spread == 0:
             price_spread = 0.01
-        pixel_per_unit = 260 / price_spread
+        pixel_per_unit = 140 / price_spread
         points = []
-        for price in price_history:
-            points.append(round((280 - (price - min_price) * pixel_per_unit),2))
+        for price in prices:
+            points.append(round((160 - (price - min_price) * pixel_per_unit),2))
         return points
 
     class Meta:
