@@ -6,10 +6,12 @@ class Company(models.Model):
     country = models.CharField(max_length=50, blank=True)
     city = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=2000, blank=True)
+    revenue_drive = models.CharField(max_length=200, blank=True)
+    future_endeavours = models.CharField(max_length=200, blank=True)
     stock_exchange = models.CharField(max_length=50, blank=True)
     ticker = models.CharField(max_length=12, blank=True)
     price = models.FloatField(default=0, blank=True)
-    price_history = models.JSONField(default=dict(), blank=True)
+    price_history = models.JSONField(default={"placeholder": 0}, blank=True)
     currency = models.CharField(max_length=3, blank=True)
     website = models.CharField(max_length=50, blank=True)
     xing_profile = models.CharField(max_length=50, blank=True)
@@ -31,10 +33,11 @@ class Company(models.Model):
         price_spread = max_price - min_price
         if price_spread == 0:
             price_spread = 0.01
-        pixel_per_unit = 140 / price_spread
+        graph_height = 140 #tightly coupled with template
+        pixel_per_unit = graph_height / price_spread
         points = []
         for price in prices:
-            points.append(round((160 - (price - min_price) * pixel_per_unit),2))
+            points.append(round(((graph_height + 20) - (price - min_price) * pixel_per_unit),2))
         return points
 
     class Meta:
