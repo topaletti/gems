@@ -12,4 +12,4 @@ class DatabaseView(generic.ListView):
     context_object_name = 'company_list'
 
     def get_queryset(self):
-        return Company.objects.all()
+        return Company.objects.order_by('name')
