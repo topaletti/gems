@@ -5,13 +5,13 @@ div#content {margin:160px auto 0 auto;width:800px;max-width:90%;}
 div.company {margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 8px 64px -16px;}
 div.always-showing {display:flex;align-items:center;}
 div.always-showing .name {align-self:flex-start;font-size:1.25em;font-weight:bold;letter-spacing:-0.05em;color:var(--main-accent-color)}
-div.always-showing .description {align-self:center;margin-left:16px}
-div.always-showing .expand-button {align-self:flex-end;margin-left:auto;width:100px}
+div.always-showing .description {align-self:center;margin-left:16px;margin-right:16px}
+div.always-showing .expand-button {align-self:center;margin-left:auto;width:100px}
 div.expandable {margin-top:16px;display:flex;align-items:center;}
 div.expandable .info {align-self:flex-start}
 div.expandable .info .label {font-weight:bold;}
 div.expandable .info .text {margin-left:16px}
-div.expandable .performance {align-self:flex-end;margin-left:auto}
+div.expandable .performance {align-self:flex-start;margin-left:auto}
 path.bars {stroke:var(--main-accent-color);}
 path.grid {stroke:#cccccc;stroke-width:0.5}
 [hidden] {display: none !important;}
@@ -32,7 +32,7 @@ path.grid {stroke:#cccccc;stroke-width:0.5}
                 <p><span class="label">Revenue drive: </span><br><span class="text">{{ company.revenue_drive }}</span></p>
                 <p><span class="label">Future endeavours: </span><br><span class="text">{{ company.future_endeavours }}</span></p>
             </div>
-            <svg class="performance" width="272" height="180" viewBox="0 0 272 180">
+            <svg class="performance" width="40%" height="180" viewBox="0 0 272 180">
                 <path class="bars" d="M {% for point in company.price_history_points %}{{ forloop.counter0|add:"10" }},{{ point }} {% endfor %}" fill="transparent"/>
                 <path class="grid" d="M 10,10 H 262"/><path class="grid" d="M 10,50 H 262"/><path class="grid" d="M 10,90 H 262"/><path class="grid" d="M 10,130 H 262"/><path class="grid" d="M 10,170 H 262"/>
                 <path class="grid" d="M 10,10 V 170"/><path class="grid" d="M 60,10 V 170"/><path class="grid" d="M 110,10 V 170"/><path class="grid" d="M 160,10 V 170"/><path class="grid" d="M 211,10 V 170"/><path class="grid" d="M 262,10 V 170"/>
