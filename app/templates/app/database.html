@@ -10,7 +10,6 @@ div.always-showing .expand-button {align-self:center;margin-left:auto;width:100p
 div.expandable {margin-top:16px;display:flex;align-items:center;}
 div.expandable .info {align-self:flex-start;width:50%}
 div.expandable .info .label {font-weight:bold;}
-div.expandable .info .text {margin-left:16px}
 div.expandable .performance {align-self:flex-start;margin-left:auto;width:50%}
 path.bars {stroke:var(--main-accent-color);}
 path.grid {stroke:#cccccc;stroke-width:0.5}
@@ -29,8 +28,14 @@ path.grid {stroke:#cccccc;stroke-width:0.5}
         </div>
         <div class="expandable" hidden="true">
             <div class="info">
-                <p><span class="label">Revenue drive: </span><br><span class="text">{{ company.revenue_drive }}</span></p>
-                <p><span class="label">Future endeavours: </span><br><span class="text">{{ company.future_endeavours }}</span></p>
+                <p><span class="label">Revenue drive: </span></p>
+                <ul>
+                    {% for bullet_point in company.revenue_drive_list %}<li>{{ bullet_point }}</li>{% endfor %}
+                </ul>
+                <p><span class="label">Future endeavours: </span></p>
+                <ul>
+                    {% for bullet_point in company.future_endeavours_list %}<li>{{ bullet_point }}</li>{% endfor %}
+                </ul>
             </div>
             <svg class="performance" viewBox="0 0 272 180">
                 <path class="bars" d="M {% for point in company.price_history_points %}{{ forloop.counter0|add:"10" }},{{ point }} {% endfor %}" fill="transparent"/>

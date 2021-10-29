@@ -22,6 +22,12 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+    def revenue_drive_list(self):
+        return self.revenue_drive.split('; ')
+
+    def future_endeavours_list(self):
+        return self.future_endeavours.split('; ')
+
     def price_history_points(self):
         price_history = self.price_history
         prices = []
