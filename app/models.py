@@ -33,18 +33,36 @@ class Company(models.Model):
         prices = []
         for price in price_history:
             prices.append(price_history[price])
-        prices = prices[0::5] #getting every fifth
+        prices = prices[0::5] # getting every fifth
         min_price = min(prices)
         max_price = max(prices)
         price_spread = max_price - min_price
         if price_spread == 0:
             price_spread = 0.01
-        graph_height = 140 #tightly coupled with template
+        graph_height = 140 # tightly coupled with template
         pixel_per_unit = graph_height / price_spread
         points = []
         for price in prices:
             points.append(round(((graph_height + 20) - (price - min_price) * pixel_per_unit),2))
+        if len(points) < 252: # add padding
+            padding_length = 252 - len(points)
+            padding = [0]*padding_length
+            points = [*padding, *points]
         return points
+
+    def five_year_performance(self):
+        price_history = list(self.price_history.values())
+        history_length = len(price_history)
+        last_index = history_length - 1
+        if history_length < 1260:
+            number_of_days = history_length
+        else:
+            number_of_days = 1260
+        first_index = history_length - number_of_days
+        if price_history[0] == 0: # placeholder dict
+            return 0
+        else:
+            return int(price_history[last_index] / price_history[first_index] * 100 - 100)
 
     class Meta:
         verbose_name_plural = 'companies'

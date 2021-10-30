@@ -10,9 +10,11 @@ div.always-showing .expand-button {align-self:flex-start;margin-left:auto;width:
 div.expandable {margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;}
 div.expandable .info {align-self:flex-start;width:360px}
 div.expandable .info .label {font-weight:bold;}
-div.expandable .performance {align-self:flex-start;margin-left:auto;width:360px}
+div.expandable svg.performance {align-self:flex-start;margin-left:auto;width:360px}
 path.bars {stroke:var(--main-accent-color);}
 path.grid {stroke:#cccccc;stroke-width:0.5}
+text.axis {font-size:8px;fill:#7f7f7f;}
+text.performance {font-size:12px;fill:#00dd00;}
 [hidden] {display: none !important;}
 {% endblock %}
 
@@ -37,10 +39,12 @@ path.grid {stroke:#cccccc;stroke-width:0.5}
                     {% for bullet_point in company.future_endeavours_list %}<li>{{ bullet_point }}</li>{% endfor %}
                 </ul>
             </div>
-            <svg class="performance" viewBox="0 0 272 180">
-                <path class="bars" d="M {% for point in company.price_history_points %}{{ forloop.counter0|add:"10" }},{{ point }} {% endfor %}" fill="transparent"/>
+            <svg class="performance" viewBox="0 0 272 190">
+                <path class="bars" d="M {% for point in company.price_history_points %}{% if point > 0 %}{{ forloop.counter0|add:"10" }},{{ point }} {% endif %}{% endfor %}" fill="transparent"/>
                 <path class="grid" d="M 10,10 H 262"/><path class="grid" d="M 10,50 H 262"/><path class="grid" d="M 10,90 H 262"/><path class="grid" d="M 10,130 H 262"/><path class="grid" d="M 10,170 H 262"/>
                 <path class="grid" d="M 10,10 V 170"/><path class="grid" d="M 60,10 V 170"/><path class="grid" d="M 110,10 V 170"/><path class="grid" d="M 160,10 V 170"/><path class="grid" d="M 211,10 V 170"/><path class="grid" d="M 262,10 V 170"/>
+                <text class="axis" x="10" y="180">5 years ago</text><text class="axis" x="242" y="180">now</text>
+                <text class="performance" x="220" y="30">+{{ company.five_year_performance }}%</text>
             </svg>
         </div>
     </div>
