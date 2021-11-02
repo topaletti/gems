@@ -52,13 +52,13 @@ class Company(models.Model):
 
     def five_year_performance(self):
         price_history = list(self.price_history.values())
-        history_length = len(price_history)
-        last_index = history_length - 1
-        if history_length < 1260:
-            number_of_days = history_length
+        total_history_length = len(price_history)
+        last_index = total_history_length - 1
+        if total_history_length < 1260:
+            displayed_history_length = total_history_length
         else:
-            number_of_days = 1260
-        first_index = history_length - number_of_days
+            displayed_history_length = 1260
+        first_index = total_history_length - displayed_history_length
         if price_history[0] == 0: # placeholder dict
             return 0
         else:
