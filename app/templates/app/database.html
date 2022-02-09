@@ -7,12 +7,15 @@ div.always-showing {display:flex;align-items:center;}
 div.always-showing .name {align-self:flex-start;font-size:1.25em;font-weight:bold;letter-spacing:-0.05em;color:var(--main-accent-color)}
 div.always-showing .description {align-self:center;margin-left:16px;margin-right:16px}
 div.always-showing .expand-button {align-self:flex-start;margin-left:auto;width:100px}
+.flag {margin-right: 8px;}
 div.expandable {margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;}
 div.expandable .info {align-self:flex-start;width:360px}
 div.expandable .label {font-weight:bold;}
 div.expandable .performance {align-self:flex-start;margin-left:auto;width:360px}
 div.expandable span.performance-value {color:#00dd00;}
 div.expandable svg.chart {}
+.company-website {color:var(--main-accent-color);font-weight:bold}
+.company-website:hover {color:var(--second-accent-color)}
 path.bars {stroke:var(--main-accent-color);}
 path.grid {stroke:#cccccc;stroke-width:0.5}
 text.axis {font-size:8px;fill:#7f7f7f;}
@@ -22,15 +25,19 @@ text.axis {font-size:8px;fill:#7f7f7f;}
 {% block content %}
 <div id="content">
 {% if company_list %}
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 {% for company in company_list %}
     <div class="company">
         <div class="always-showing">
+            <img class="flag" alt="{{ company.country_name }}" src="{{ STATIC_PREFIX }}flags/{{ company.country|lower }}.webp" />
             <span class="name">{{ company.name }}</span>
             <span class="description">{{ company.description }}</span>
             <button class="expand-button" type="button">Expand</button>
         </div>
         <div class="expandable" hidden="true">
             <div class="info">
+                <p><a class="company-website" href="{{ company.website }}" target="_blank" rel="noopener noreferrer">Company website</a></p>
                 <p><span class="label">Revenue drive: </span></p>
                 <ul>
                     {% for bullet_point in company.revenue_drive_list %}<li>{{ bullet_point }}</li>{% endfor %}

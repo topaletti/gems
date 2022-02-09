@@ -21,6 +21,33 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+        
+    def country_name(self):
+        names = {
+            'AT': 'Austria',
+            'BE': 'Belgium',
+            'CH': 'Switzerland',
+            'CZ': 'Czech Republic',
+            'DE': 'Germany',
+            'DK': 'Denmark',
+            'ES': 'Spain',
+            'FI': 'Finland',
+            'FO': 'Faroe Island',
+            'FR': 'France',
+            'GB': 'United Kingdom',
+            'GR': 'Greece',
+            'HU': 'Hungary',
+            'IE': 'Ireland',
+            'IS': 'Iceland',
+            'IT': 'Italy',
+            'LU': 'Luxembourg',
+            'NL': 'Netherlands',
+            'NO': 'Norway',
+            'PL': 'Poland',
+            'PT': 'Portugal',
+            'SE': 'Sweden',
+        }
+        return names[self.country]
 
     def revenue_drive_list(self):
         return self.revenue_drive.split('; ')
