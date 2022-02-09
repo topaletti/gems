@@ -30,7 +30,7 @@ text.axis {font-size:8px;fill:#7f7f7f;}
 {% for company in company_list %}
     <div class="company">
         <div class="always-showing">
-            <img class="flag" alt="{{ company.country_name }}" src="{{ STATIC_PREFIX }}flags/{{ company.country|lower }}.webp" />
+            <img class="flag" alt="{{ company.country_name }}" title="{{ company.country_name }}" src="{{ STATIC_PREFIX }}flags/{{ company.country|lower }}.webp" />
             <span class="name">{{ company.name }}</span>
             <span class="description">{{ company.description }}</span>
             <button class="expand-button" type="button">Expand</button>
