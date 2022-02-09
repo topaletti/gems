@@ -32,7 +32,7 @@ class Company(models.Model):
             'DK': 'Denmark',
             'ES': 'Spain',
             'FI': 'Finland',
-            'FO': 'Faroe Island',
+            'FO': 'Faroe Islands',
             'FR': 'France',
             'GB': 'United Kingdom',
             'GR': 'Greece',
