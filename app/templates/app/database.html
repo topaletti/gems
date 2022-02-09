@@ -48,7 +48,7 @@ text.axis {font-size:8px;fill:#7f7f7f;}
                 </ul>
             </div>
             <div class="performance">
-                <p><span class="label">Five-year performance: </span><span class="performance-value">+{{ company.five_year_performance }}%</span></p>
+                <p><span class="label">Five-year stock performance: </span><span class="performance-value">+{{ company.five_year_performance }}%</span></p>
                 <svg class="chart" viewBox="0 0 272 190">
                     <path class="bars" d="M {% for point in company.price_history_points %}{% if point > 0 %}{{ forloop.counter0|add:"10" }},{{ point }} {% endif %}{% endfor %}" fill="transparent"/>
                     <path class="grid" d="M 10,10 H 262"/><path class="grid" d="M 10,50 H 262"/><path class="grid" d="M 10,90 H 262"/><path class="grid" d="M 10,130 H 262"/><path class="grid" d="M 10,170 H 262"/>
