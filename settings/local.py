@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-lm3mvg%=-d_4f(2zoshaq5!-a!vbtw$0kg(4=x*5p_(mqey_(u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gemsofeurope.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -129,6 +129,13 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Activate Django-Heroku.
+#django_heroku.settings(locals())
+
+# Connect to Heroku Postgres
+#import dj_database_url
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Anymail and Mailgun
 ANYMAIL = {
