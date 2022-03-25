@@ -1,28 +1,30 @@
 {% extends "app/base.html" %}
 
 {% block additional-css %}
-div#content {margin:120px auto 80px auto;width:800px;max-width:90%;}
+#content {margin:120px auto 80px auto;width:800px;max-width:90%;}
 h2 {margin-top:2em;margin-bottom:1em;color:var(--main-accent-color);font-size:125%;}
+ul {margin-bottom:2em;}
+li {margin-bottom:0.5em;}
 .filter-tag {display:inline-block;margin:0 0.5em 0.5em 0;padding:8px;border-radius:0.5em;border:1px solid var(--main-accent-color);}
 .inactive {background:#fcfcfc;color:gray;border-color:#fcfcfc;}
 .active {background:var(--main-accent-color);color:white;}
-div.company {margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 0px 16px -8px;}
-div.always-showing {display:flex;align-items:center;}
-div.always-showing .name {align-self:flex-start;font-size:1.25em;font-weight:bold;letter-spacing:-0.05em;color:var(--main-accent-color)}
-div.always-showing .description {align-self:center;margin-left:16px;margin-right:16px}
-div.always-showing .expand-button {align-self:flex-start;margin-left:auto;width:100px}
+.company {margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 0px 16px -8px;}
+.always-showing {display:flex;align-items:center;}
+.name {align-self:flex-start;font-size:1.25em;font-weight:bold;letter-spacing:-0.05em;color:var(--main-accent-color)}
+.description {align-self:center;margin-left:16px;margin-right:16px}
+.expand-button {align-self:flex-start;margin-left:auto;width:100px}
 .flag {align-self:flex-start;margin-right:8px;margin-top:4px;}
-div.expandable {margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;}
-div.expandable .info {align-self:flex-start;width:360px}
-div.expandable .label {font-weight:bold;}
-div.expandable .performance {align-self:flex-start;margin-left:auto;width:360px}
-div.expandable span.performance-value {color:#00dd00;}
-div.expandable svg.chart {}
+.expandable {margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;}
+.info {align-self:flex-start;width:360px}
+.label {font-weight:bold;}
+.performance {align-self:flex-start;margin-left:auto;width:360px}
+.performance-value {color:#00dd00;}
+.chart {}
+.bars {stroke:var(--main-accent-color);}
+.grid {stroke:#cccccc;stroke-width:0.5}
+.axis {font-size:8px;fill:#7f7f7f;}
 .company-website {color:var(--main-accent-color);font-weight:bold}
 .company-website:hover {color:var(--second-accent-color)}
-path.bars {stroke:var(--main-accent-color);}
-path.grid {stroke:#cccccc;stroke-width:0.5}
-text.axis {font-size:8px;fill:#7f7f7f;}
 [hidden] {display: none !important;}
 {% endblock %}
 
@@ -71,6 +73,7 @@ text.axis {font-size:8px;fill:#7f7f7f;}
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
     <h2>Company list</h2>
+    <p id="display-count-message"></p>
 {% for company in company_list %}
     <div class="company {{ company.country|lower }} i-{{ company.industry|lower }}">
         <div class="always-showing">
@@ -81,7 +84,6 @@ text.axis {font-size:8px;fill:#7f7f7f;}
         </div>
         <div class="expandable" hidden="true">
             <div class="info">
-                <p><a class="company-website" href="{{ company.website }}" target="_blank" rel="noopener noreferrer">Company website</a></p>
                 <p><span class="label">Revenue drive: </span></p>
                 <ul>
                     {% for bullet_point in company.revenue_drive_list %}<li>{{ bullet_point }}</li>{% endfor %}
@@ -90,6 +92,7 @@ text.axis {font-size:8px;fill:#7f7f7f;}
                 <ul>
                     {% for bullet_point in company.future_endeavours_list %}<li>{{ bullet_point }}</li>{% endfor %}
                 </ul>
+                <p><a class="company-website" href="{{ company.website }}" target="_blank" rel="noopener noreferrer">Visit {{ company.name }} company website</a></p>
             </div>
             <div class="performance">
                 <p><span class="label">Five-year stock performance: </span><span class="performance-value">+{{ company.five_year_performance }}%</span></p>
@@ -109,7 +112,32 @@ text.axis {font-size:8px;fill:#7f7f7f;}
 </div>
 <script type='text/javascript'>
     const expandButtons = document.querySelectorAll('.expand-button');
+    const companies = document.querySelectorAll('.company');
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const displayCountMessage = document.querySelector('#display-count-message');
+    
     expandButtons.forEach(button => button.addEventListener('click', expand, false));
+    filterTags.forEach(tag => tag.addEventListener('click', toggleFilter, false));
+    
+    setDisplayedCompaniesMessage(countDisplayedCompanies());
+    
+    function setDisplayedCompaniesMessage(count) {
+        let companyWord = 'companies';
+        if (count == 1) {
+            companyWord = 'company';
+        }
+        displayCountMessage.innerHTML = count + ' ' + companyWord + ' displayed.';
+    }
+    
+    function countDisplayedCompanies() {
+        let displayedCompaniesCount = 0;
+        companies.forEach(company => {
+            if (company.style.display != 'none') {
+                displayedCompaniesCount++;
+            }
+        });
+        return displayedCompaniesCount;
+    }
 
     function expand(e) {
         this.parentElement.parentElement.querySelector('.expandable').hidden = false;
@@ -124,10 +152,6 @@ text.axis {font-size:8px;fill:#7f7f7f;}
         this.addEventListener('click', expand, false);
         this.innerHTML = 'Expand';
     }
-
-    const companies = document.querySelectorAll('.company');
-    const filterTags = document.querySelectorAll('.filter-tag');
-    filterTags.forEach(tag => tag.addEventListener('click', toggleFilter, false));
 
     function toggleFilter(e) {
         const classString = this.getAttribute('class');
@@ -199,8 +223,7 @@ text.axis {font-size:8px;fill:#7f7f7f;}
                 company.style.display = 'none';
             }
         });
-        console.log(industryFilters.length === 0);
-        console.log(industryFilters);
+        setDisplayedCompaniesMessage(countDisplayedCompanies());
     }
 </script>
 {% endblock %}
