@@ -1,0 +1,108 @@
+{% extends "app/base.html" %}
+
+{% block additional-css %}
+#content {margin:120px auto 80px auto;width:800px;max-width:90%;}
+h1,h2 {color:var(--main-accent-color);}
+h1 {font-size:200%;}
+h2 {margin:1.5em 0 0.5em 0;font-size:125%}
+p {line-height:2em;}
+#chart {margin-top:1em;}
+path {stroke-width:0.5;}
+.closing-price {stroke:#000000;}
+.average-forecast {stroke:var(--third-accent-color);}
+.average-forecast-circle {fill:var(--third-accent-color);}
+.user-forecast {stroke:var(--second-accent-color);}
+.user-forecast-circle {fill:var(--second-accent-color);}
+.timebar {fill:#cccccc;}
+.grid {stroke:#cccccc;}
+.axis {font-size:6px;}
+.chart-label {font-size:6px;}
+#forecast {margin-right:0.5em;padding:0.5em;font-size:125%;width:5em;}
+#update-button {margin-left:1em;font-size:100%;padding:0.5em;}
+#discussion {border:1px solid #cccccc;padding:1em;}
+#messages {height:400px;}
+.date-separator {margin-bottom:0.5em;border-bottom:1px solid #cccccc;line-height:1em;text-align:center;color:var(--main-accent-color);font-weight:bold;}
+.date {margin:0 auto;}
+.message {line-height:2em;}
+.time-and-nick {display:inline;}
+.time {color:var(--second-accent-color);}
+.nick {margin:0 0.5em;color:var(--main-accent-color);font-weight:bold;text-align:right;}
+.message-text {display:inline;}
+#new-message-text {padding:0.5em;width:50%;}
+#send-message-button {margin-left:1em;padding:0.5em;}
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <h1>April 2022 Challenge</h1>
+    <h2>Background</h2>
+    <p>
+        European countries are considering reducing their gas imports from Russia.
+        As an alternative, liquefied natural gas (LNG) imports from the Americas are becoming more attractive.
+        Swiss engineering company Burckhardt Compression specialises in manufacturing and installing the compressors that are needed to store LNG on carrier ships and transfer it into local gas supply grids at import terminals.
+        In March, the price of Burckhardt Compression's stock on SIX Swiss Exchange has already risen by about 15% from 452 CHF on 28 February to 515 CHF on 31 March.
+    </p>
+    <h2>Question</h2>
+    <p>What will be the closing price of Burckhardt Compression's stock on SIX Swiss Exchange on 30 April 2022?</p>
+    <svg id="chart" viewBox="0 0 310 150">
+        <path class="closing-price" d="M 2,3 H 12"/>
+        <rect x="2" y="2" width="2" height="2"/>
+        <rect x="12" y="2" width="2" height="2"/>
+        <text class="chart-label" x="16" y="5">Closing price</text>
+        <path class="average-forecast" d="M 74,3 H 84"/>
+        <circle class="average-forecast-circle" cx="74" cy="3" r="1"/>
+        <circle class="average-forecast-circle" cx="84" cy="3" r="1"/>
+        <text class="chart-label" x="88" y="5">Average user forecast</text>
+        <path class="user-forecast" d="M 171,3 H 181"/>
+        <circle class="user-forecast-circle" cx="171" cy="3" r="1"/>
+        <circle class="user-forecast-circle" cx="181" cy="3" r="1"/>
+        <text class="chart-label" x="185" y="5">Your forecast</text>
+        <rect class="timebar" x="245" y="1" width="10" height="4" rx="2"/>
+        <text class="chart-label" x="259" y="5">Rating period</text>
+{% for day in days_of_month %}
+        <path class="grid" d="M {{ forloop.counter0 }}5,10 V 140"/>
+        <text class="axis" x="{{ forloop.counter0 }}{% if day < 10 %}4{% else %}2{% endif %}" y="148">{{ day }}</text>
+{% endfor %}
+        <rect class="timebar" x="43" y="133" width="{{ length_of_rating_period|add:"-1" }}4" height="4" rx="2"/>
+    </svg>
+    <h2>Your Forecast</h2>
+    <p>
+        <input id="forecast" type="number" value="515" min="0" step="1">
+        <span class="currency">CHF</span>
+        <button id="update-button">Update forecast</button>
+    </p>
+    <h2>Discussion</h2>
+    <div id="discussion">
+        <div id="messages">
+            <div class="date-separator">
+                <p class="date">1 April</p>
+            </div>
+            <div class="message">
+                <div class="time-and-nick">
+                    <span class="time">18:00</span>
+                    <span class="nick">John D.</span>
+                </div>
+                <div class="message-text">
+                    Interesting challenge. Is that company the market leader for that specific kind of compressor?
+                </div>
+            </div>
+            <div class="message">
+                <div class="time-and-nick">
+                    <span class="time">18:10</span>
+                    <span class="nick">Max M.</span>
+                </div>
+                <div class="message-text">
+                    Would surprise me if they were. At least on the carrier side. The US is the world's largest LNG exporter, so they probably have their own manufacturers of compressors for carrier ships. When it comes to the import terminals in Europe though, Burckhardt could be in a unique position.
+                </div>
+            </div>
+        </div>
+        <div id="new-message">
+            <span class="nick">Antonio B.</span>
+            <input id="new-message-text" type="text" placeholder="Your message">
+            <button id="send-message-button">Send message</button>
+        </div>
+    </div>
+</div>
+<script type='text/javascript'>
+</script>
+{% endblock %}
