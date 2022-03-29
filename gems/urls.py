@@ -21,7 +21,7 @@ import app.mail
 
 urlpatterns = [
     path('', app.views.index, name="app/index"),
-    path('database/', app.views.DatabaseView.as_view(), name="app/database"),
+    path('companies/', app.views.DatabaseView.as_view(), name="app/database"),
     path('challenges/', app.views.challenges, name="app/challenges"),
     path('admin/', admin.site.urls),
     #path('sendtestmail/', app.mail.send_test_mail),
