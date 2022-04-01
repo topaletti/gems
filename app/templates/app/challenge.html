@@ -34,16 +34,11 @@ path {stroke-width:0.5;}
 
 {% block content %}
 <div id="content">
-    <h1>April 2022 Challenge</h1>
+    <h1>{{ challenge.name }}</h1>
     <h2>Background</h2>
-    <p>
-        European countries are considering reducing their gas imports from Russia.
-        As an alternative, liquefied natural gas (LNG) imports from the Americas are becoming more attractive.
-        Swiss engineering company Burckhardt Compression specialises in manufacturing and installing the compressors that are needed to store LNG on carrier ships and transfer it into local gas supply grids at import terminals.
-        In March, the price of Burckhardt Compression's stock on SIX Swiss Exchange has already risen by about 15% from 452 CHF on 28 February to 515 CHF on 31 March.
-    </p>
+    <p>{{ challenge.background }}</p>
     <h2>Question</h2>
-    <p>What will be the closing price of Burckhardt Compression's stock on SIX Swiss Exchange on 30 April 2022?</p>
+    <p>{{ challenge.question }}</p>
     <svg id="chart" viewBox="0 0 310 150">
         <path class="closing-price" d="M 2,3 H 12"/>
         <rect x="2" y="2" width="2" height="2"/>
@@ -59,16 +54,16 @@ path {stroke-width:0.5;}
         <text class="chart-label" x="185" y="5">Your forecast</text>
         <rect class="timebar" x="245" y="1" width="10" height="4" rx="2"/>
         <text class="chart-label" x="259" y="5">Rating period</text>
-{% for day in days_of_month %}
+{% for day in challenge.days_of_month %}
         <path class="grid" d="M {{ forloop.counter0 }}5,10 V 140"/>
         <text class="axis" x="{{ forloop.counter0 }}{% if day < 10 %}4{% else %}2{% endif %}" y="148">{{ day }}</text>
 {% endfor %}
-        <rect class="timebar" x="43" y="133" width="{{ length_of_rating_period|add:"-1" }}4" height="4" rx="2"/>
+        <rect class="timebar" x="43" y="133" width="{{ challenge.length_of_rating_period|add:"-1" }}4" height="4" rx="2"/>
     </svg>
     <h2>Your Forecast</h2>
     <p>
         <input id="forecast" type="number" value="515" min="0" step="1">
-        <span class="currency">CHF</span>
+        <span class="currency">{{ challenge.currency }}</span>
         <button id="update-button">Update forecast</button>
     </p>
     <h2>Discussion</h2>

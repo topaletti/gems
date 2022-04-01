@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+def placeholder_dict():
+    return {"placeholder": 0}
+
+
 class Company(models.Model):
     name = models.CharField(max_length=100)
     country = models.CharField(max_length=50, blank=True)
@@ -11,7 +16,7 @@ class Company(models.Model):
     stock_exchange = models.CharField(max_length=50, blank=True)
     ticker = models.CharField(max_length=12, blank=True)
     price = models.FloatField(default=0, blank=True)
-    price_history = models.JSONField(default={"placeholder": 0}, blank=True)
+    price_history = models.JSONField(default=placeholder_dict, blank=True)
     currency = models.CharField(max_length=3, blank=True)
     website = models.CharField(max_length=50, blank=True)
     xing_profile = models.CharField(max_length=50, blank=True)
@@ -93,6 +98,29 @@ class Company(models.Model):
 
     class Meta:
         verbose_name_plural = 'companies'
+
+
+class Challenge(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.CharField(max_length=7)
+    days_in_month = models.IntegerField(default=0)
+    background = models.CharField(max_length=3000)
+    question = models.CharField(max_length=200)
+    currency = models.CharField(max_length=3)
+    closing_price = models.JSONField(default=placeholder_dict)
+    average_forecast = models.JSONField(default=placeholder_dict)
+
+    def __str__(self):
+        return self.name
+
+    def days_of_month(self):
+        return range(1, self.days_in_month + 1)
+
+    def last_forecast_day(self):
+        return self.days_in_month - 3
+
+    def length_of_rating_period(self):
+        return self.days_in_month - 7
 
 
 class Portfolio(models.Model):
