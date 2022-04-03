@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
-import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +26,7 @@ SECRET_KEY = 'django-insecure-lm3mvg%=-d_4f(2zoshaq5!-a!vbtw$0kg(4=x*5p_(mqey_(u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gemsofeurope.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -130,16 +129,9 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
-# Connect to Heroku Postgres
-#import dj_database_url
-#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
 # Anymail and Mailgun
 ANYMAIL = {
-    "MAILGUN_API_KEY": '9588efb358c5718da4e5fe62a87bcef9-90346a2d-aedd8486',
+    "MAILGUN_API_KEY": 'not even used',
     "MAILGUN_API_URL": "https://api.eu.mailgun.net/v3",
     "MAILGUN_SENDER_DOMAIN": 'sandboxd28b64f8bba549dc9635d53bf5fe516d.mailgun.org',
 }

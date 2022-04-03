@@ -15,13 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic.base import RedirectView
 
 import app.views
 import app.mail
 
 urlpatterns = [
     path('', app.views.index, name="app/index"),
-    path('database/', app.views.DatabaseView.as_view(), name="app/database"),
+    path('companies/', app.views.DatabaseView.as_view(), name="app/database"),
+    path('challenges/', RedirectView.as_view(url='2022-04/'), name="app/challenges"),
+    path('challenges/<slug:slug>/', app.views.ChallengeView.as_view(), name="app/challenge"),
     path('admin/', admin.site.urls),
     #path('sendtestmail/', app.mail.send_test_mail),
 ]

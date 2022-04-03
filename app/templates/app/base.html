@@ -7,7 +7,7 @@
 	<style media="screen">
     :root {--main-bg-color:#0F4C81;--light-bg-color:#F2EFE3;
       --main-border-color:#B3C7D5;
-      --main-accent-color:#4C0269;--second-accent-color:#800080;}
+      --main-accent-color:#4C0269;--second-accent-color:#800080;--third-accent-color:#E500E5;}
 	  html,body {margin:0;padding:0;height:100%;color:black;font-family:sans-serif;}
     a {color:black;}
     nav {position:fixed;top:0%;left:0%;box-sizing:border-box;width:100%;margin:0;
@@ -15,12 +15,13 @@
       padding:12px 32px 12px 32px;background:white;}
     nav a {text-decoration:none;}
     nav a:hover {text-decoration:none;}
-    nav div.logo {display:inline;text-align:left;
+    .logo {display:inline;text-align:left;
       font-size:32px;font-weight:bold;letter-spacing:-0.05em;}
-    nav div.logo a {color:var(--main-accent-color);}
-    nav div.menu {display:inline;text-align:right;font-size:16px;padding-left:48px;padding-right:48px;}
-    nav div.menu span.menu-button {margin:0 24px 0 24px;padding:4px;white-space:nowrap;}
-    nav div.menu span.menu-button:hover {border-style:none none solid none;border-width:2px;border-color:var(--second-accent-color);}
+    .logo a {color:var(--main-accent-color);}
+    .menu {display:inline;text-align:right;font-size:16px;padding-left:48px;padding-right:48px;}
+    .menu-button {margin:0 12px;padding:8px 16px;white-space:nowrap;}
+    .menu-button:hover {border-style:none none solid none;border-width:2px;border-color:var(--second-accent-color);}
+    footer {height:2em;}
     {% block additional-css %}{% endblock %}
 	</style>
   </head>
@@ -55,9 +56,9 @@
           </a>
         </div>
         <div class="menu">
-          <a href="{% url 'app/database' %}"><span class="menu-button">Database</span></a>
-          <a href=""><span class="menu-button" hidden>Gem Report</span></a>
-          <a href=""><span class="menu-button" hidden>Community</span></a>
+          <a class="menu-button" href="{% url 'app/database' %}">Companies</a>
+          <a class="menu-button" href="{% url 'app/challenges' %}">Forecast Challenges</a>
+          <a class="menu-button" href="" hidden>FAQ</a>
         </div>
       </nav>
     </header>

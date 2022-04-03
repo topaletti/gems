@@ -1,43 +1,89 @@
 {% extends "app/base.html" %}
 
 {% block additional-css %}
-div#content {margin:120px auto 80px auto;width:800px;max-width:90%;}
-div.company {margin:32px auto;padding:16px;background:white;box-shadow:var(--main-accent-color) 0px 0px 16px -8px;}
-div.always-showing {display:flex;align-items:center;}
-div.always-showing .name {align-self:flex-start;font-size:1.25em;font-weight:bold;letter-spacing:-0.05em;color:var(--main-accent-color)}
-div.always-showing .description {align-self:center;margin-left:16px;margin-right:16px}
-div.always-showing .expand-button {align-self:flex-start;margin-left:auto;width:100px}
-.flag {align-self:flex-start;margin-right:8px;margin-top:4px;}
-div.expandable {margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;}
-div.expandable .info {align-self:flex-start;width:360px}
-div.expandable .label {font-weight:bold;}
-div.expandable .performance {align-self:flex-start;margin-left:auto;width:360px}
-div.expandable span.performance-value {color:#00dd00;}
-div.expandable svg.chart {}
+#content {margin:120px auto 80px auto;width:800px;max-width:90%;}
+h2 {margin-top:2em;margin-bottom:1em;color:var(--main-accent-color);font-size:150%;}
+ul {margin-bottom:2em;}
+li {margin-bottom:0.5em;}
+.filter-tag {display:inline-block;margin:0 0.5em 0.5em 0;padding:8px;border-radius:0.5em;border:1px solid var(--main-accent-color);cursor:pointer;}
+.inactive {background:#fcfcfc;color:gray;border-color:#fcfcfc;}
+.active {background:var(--main-accent-color);color:white;}
+.company {margin:32px auto;background:white;box-shadow:var(--main-accent-color) 0px 0px 16px -8px;}
+.always-showing {padding:16px;display:flex;align-items:center;cursor:pointer;}
+.flag {}
+.name {margin-left:8px;font-size:125%;font-weight:bold;letter-spacing:-0.05em;color:var(--main-accent-color)}
+.description {margin-left:16px;margin-right:16px}
+.expand-symbol {align-self:flex-start;margin-left:auto;}
+.expandable {padding:0 16px 16px 16px;display:flex;flex-wrap:wrap;align-items:center;}
+.info {align-self:flex-start;width:360px}
+.label {font-weight:bold;}
+.performance {align-self:flex-start;margin-left:auto;width:360px}
+.performance-value {color:#00dd00;}
+.chart {}
+.bars {stroke:var(--main-accent-color);}
+.grid {stroke:#cccccc;stroke-width:0.5}
+.axis {font-size:8px;fill:#7f7f7f;}
 .company-website {color:var(--main-accent-color);font-weight:bold}
 .company-website:hover {color:var(--second-accent-color)}
-path.bars {stroke:var(--main-accent-color);}
-path.grid {stroke:#cccccc;stroke-width:0.5}
-text.axis {font-size:8px;fill:#7f7f7f;}
 [hidden] {display: none !important;}
 {% endblock %}
 
 {% block content %}
 <div id="content">
+    <div id="filters">
+        <h2>Country filter</h2>
+        <div class="filter-tags">
+            <div class="filter-tag c-filter inactive">Austria</div>
+            <div class="filter-tag c-filter inactive">Belgium</div>
+            <div class="filter-tag c-filter inactive">Czech Republic</div>
+            <div class="filter-tag c-filter inactive">Denmark</div>
+            <div class="filter-tag c-filter inactive">Faroe Islands</div>
+            <div class="filter-tag c-filter inactive">Finland</div>
+            <div class="filter-tag c-filter inactive">France</div>
+            <div class="filter-tag c-filter inactive">Germany</div>
+            <div class="filter-tag c-filter inactive">Greece</div>
+            <div class="filter-tag c-filter inactive">Hungary</div>
+            <div class="filter-tag c-filter inactive">Iceland</div>
+            <div class="filter-tag c-filter inactive">Ireland</div>
+            <div class="filter-tag c-filter inactive">Italy</div>
+            <div class="filter-tag c-filter inactive">Luxembourg</div>
+            <div class="filter-tag c-filter inactive">Netherlands</div>
+            <div class="filter-tag c-filter inactive">Norway</div>
+            <div class="filter-tag c-filter inactive">Poland</div>
+            <div class="filter-tag c-filter inactive">Portugal</div>
+            <div class="filter-tag c-filter inactive">Spain</div>
+            <div class="filter-tag c-filter inactive">Sweden</div>
+            <div class="filter-tag c-filter inactive">Switzerland</div>
+            <div class="filter-tag c-filter inactive">United Kingdom</div>
+        </div>
+        <h2>Industry filter</h2>
+        <div class="filter-tags">
+            <div class="filter-tag i-filter inactive">Construction and Real Estate</div>
+            <div class="filter-tag i-filter inactive">Electronics and Connectivity</div>
+            <div class="filter-tag i-filter inactive">Energy and Infrastructure</div>
+            <div class="filter-tag i-filter inactive">Fashion, Hobby and Luxury</div>
+            <div class="filter-tag i-filter inactive">Food</div>
+            <div class="filter-tag i-filter inactive">Health, Medicine and Biotech</div>
+            <div class="filter-tag i-filter inactive">Industrial Chemicals, Materials and Components</div>
+            <div class="filter-tag i-filter inactive">Logistics and Transportation</div>
+            <div class="filter-tag i-filter inactive">Software and Consulting</div>
+        </div>
+    </div>
 {% if company_list %}
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
+    <h2>Company list</h2>
+    <p id="display-count-message"></p>
 {% for company in company_list %}
-    <div class="company">
+    <div class="company {{ company.country|lower }} i-{{ company.industry|lower }}">
         <div class="always-showing">
             <img class="flag" alt="{{ company.country_name }}" title="{{ company.country_name }}" src="{{ STATIC_PREFIX }}flags/{{ company.country|lower }}.webp" />
             <span class="name">{{ company.name }}</span>
             <span class="description">{{ company.description }}</span>
-            <button class="expand-button" type="button">Expand</button>
+            <span class="expand-symbol">⮟</span>
         </div>
         <div class="expandable" hidden="true">
             <div class="info">
-                <p><a class="company-website" href="{{ company.website }}" target="_blank" rel="noopener noreferrer">Company website</a></p>
                 <p><span class="label">Revenue drive: </span></p>
                 <ul>
                     {% for bullet_point in company.revenue_drive_list %}<li>{{ bullet_point }}</li>{% endfor %}
@@ -46,6 +92,7 @@ text.axis {font-size:8px;fill:#7f7f7f;}
                 <ul>
                     {% for bullet_point in company.future_endeavours_list %}<li>{{ bullet_point }}</li>{% endfor %}
                 </ul>
+                <p><a class="company-website" href="{{ company.website }}" target="_blank" rel="noopener noreferrer">Visit {{ company.name }} company website</a></p>
             </div>
             <div class="performance">
                 <p><span class="label">Five-year stock performance: </span><span class="performance-value">+{{ company.five_year_performance }}%</span></p>
@@ -64,21 +111,119 @@ text.axis {font-size:8px;fill:#7f7f7f;}
 {% endif %}
 </div>
 <script type='text/javascript'>
-    const expandButtons = document.querySelectorAll('.expand-button');
-    expandButtons.forEach(button => button.addEventListener('click', expand, false));
+    const expandBlocks = document.querySelectorAll('.always-showing');
+    const companies = document.querySelectorAll('.company');
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const displayCountMessage = document.querySelector('#display-count-message');
+    
+    expandBlocks.forEach(block => block.addEventListener('click', expand, false));
+    filterTags.forEach(tag => tag.addEventListener('click', toggleFilter, false));
+    
+    setDisplayedCompaniesMessage(countDisplayedCompanies());
+    
+    function setDisplayedCompaniesMessage(count) {
+        let companyWord = 'companies';
+        if (count == 1) {
+            companyWord = 'company';
+        }
+        displayCountMessage.innerHTML = count + ' ' + companyWord + ' displayed.';
+    }
+    
+    function countDisplayedCompanies() {
+        let displayedCompaniesCount = 0;
+        companies.forEach(company => {
+            if (company.style.display != 'none') {
+                displayedCompaniesCount++;
+            }
+        });
+        return displayedCompaniesCount;
+    }
 
     function expand(e) {
-        this.parentElement.parentElement.querySelector('.expandable').hidden = false;
+        this.parentElement.querySelector('.expandable').hidden = false;
         this.removeEventListener('click', expand, false);
         this.addEventListener('click', collapse, false);
-        this.innerHTML = 'Collapse';
+        this.querySelector('.expand-symbol').innerHTML = '⮝';
     }
 
     function collapse(e) {
-        this.parentElement.parentElement.querySelector('.expandable').hidden = true;
+        this.parentElement.querySelector('.expandable').hidden = true;
         this.removeEventListener('click', collapse, false);
         this.addEventListener('click', expand, false);
-        this.innerHTML = 'Expand';
+        this.querySelector('.expand-symbol').innerHTML = '⮟';
+    }
+
+    function toggleFilter(e) {
+        const classString = this.getAttribute('class');
+        let newClassString = '';
+        if (classString.includes('inactive')) {
+            newClassString = classString.replace('inactive', 'active');
+        } else {
+            newClassString = classString.replace('active', 'inactive');
+        }
+        this.setAttribute('class', newClassString);
+        applyFilters();
+    }
+    
+    function applyFilters() {
+        let countryFilters = [];
+        let industryFilters = [];
+        const tagMapping = {
+            'Austria': 'at',
+            'Belgium': 'be',
+            'Czech Republic': 'cz',
+            'Denmark': 'dk',
+            'Faroe Islands': 'fo',
+            'Finland': 'fi',
+            'France': 'fr',
+            'Germany': 'de',
+            'Greece': 'gr',
+            'Hungary': 'hu',
+            'Iceland': 'is',
+            'Ireland': 'ie',
+            'Italy': 'it',
+            'Luxembourg': 'lu',
+            'Netherlands': 'nl',
+            'Norway': 'no',
+            'Poland': 'pl',
+            'Portugal': 'pt',
+            'Spain': 'es',
+            'Sweden': 'se',
+            'Switzerland': 'ch',
+            'United Kingdom': 'gb',
+            'Construction and Real Estate': 'i-cre',
+            'Electronics and Connectivity': 'i-ec',
+            'Energy and Infrastructure': 'i-ei',
+            'Fashion, Hobby and Luxury': 'i-fhl',
+            'Food': 'i-f',
+            'Health, Medicine and Biotech': 'i-hmb',
+            'Industrial Chemicals, Materials and Components': 'i-icmc',
+            'Logistics and Transportation': 'i-lt',
+            'Software and Consulting': 'i-sc'
+        };
+        filterTags.forEach(tag => {
+            const classString = tag.getAttribute('class');
+            if (classString.includes(' active')) {
+                if (classString.includes('c-filter')) {
+                    countryFilters.push(tagMapping[tag.innerHTML]);
+                } else {
+                    industryFilters.push(tagMapping[tag.innerHTML]);
+                }
+            }
+        });
+        companies.forEach(company => {
+            const classString = company.getAttribute('class');
+            const classAttributes = classString.split(' ');
+            const country = classAttributes[1];
+            const industry = classAttributes[2];
+            if ((countryFilters.length === 0 || countryFilters.includes(country)) &&
+                (industryFilters.length === 0 || industryFilters.includes(industry))) {
+                company.style.display = 'block';
+            } else {
+                company.style.display = 'none';
+            }
+        });
+        setDisplayedCompaniesMessage(countDisplayedCompanies());
     }
 </script>
 {% endblock %}
